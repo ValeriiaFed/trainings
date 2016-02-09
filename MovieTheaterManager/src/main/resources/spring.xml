@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="
+ 		http://www.springframework.org/schema/beans
+ 		http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+ 		http://www.springframework.org/schema/util
+ 		http://www.springframework.org/schema/util/spring-util-3.2.xsd">
+
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>classpath:auditorium.properties</value>
+            </list>
+        </property>
+        <property name="ignoreResourceNotFound" value="true" />
+        <property name="systemPropertiesMode">
+            <util:constant
+                    static-field="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer.SYSTEM_PROPERTIES_MODE_OVERRIDE" />
+        </property>
+    </bean>
+
+    <bean name="app" class="com.epam.spring.core.movie_theater_manager.app.App"/>
+
+    <bean name="userOperations" class="com.epam.spring.core.movie_theater_manager.app.UserOperations">
+        <property name="userService" ref="userService"/>
+    </bean>
+
+    <bean name="eventOperations" class="com.epam.spring.core.movie_theater_manager.app.EventOperations">
+        <property name="eventService" ref="eventService"/>
+        <property name="auditoriumService" ref="auditoriumService"/>
+    </bean>
+
+    <bean name="bookingOperations" class="com.epam.spring.core.movie_theater_manager.app.BookingOperations">
+        <property name="bookingService" ref="bookingService"/>
+    </bean>
+
+    <bean id="birthdayStrategy" class="com.epam.spring.core.movie_theater_manager.entity.discount.BirthdayStrategy"/>
+    <bean id="every10thTicketStrategy" class="com.epam.spring.core.movie_theater_manager.entity.discount.Every10thTicketStrategy"/>
+
+    <bean id="event" class="com.epam.spring.core.movie_theater_manager.entity.Event"/>
+    <bean id="seat" class="com.epam.spring.core.movie_theater_manager.entity.Seat"/>
+    <bean id="ticket" class="com.epam.spring.core.movie_theater_manager.entity.Ticket"/>
+    <bean id="user" class="com.epam.spring.core.movie_theater_manager.entity.User"/>
+
+
+    <bean id="auditoriumService" class="com.epam.spring.core.movie_theater_manager.services.impl.AuditoriumServiceImpl">
+        <property name="auditoriumDAO" ref="auditoriumDAO"/>
+    </bean>
+    <bean id="bookingService" class="com.epam.spring.core.movie_theater_manager.services.impl.BookingServiceImpl">
+        <property name="discountService" ref="discountService"/>
+        <property name="bookingDAO" ref="bookingDAO"/>
+    </bean>
+    <bean id="discountService" class="com.epam.spring.core.movie_theater_manager.services.impl.DiscountServiceImpl">
+        <property name="discountStrategies">
+            <list>
+                <ref bean="birthdayStrategy"/>
+                <ref bean="every10thTicketStrategy"/>
+            </list>
+        </property>
+    </bean>
+    <bean id="eventService" class="com.epam.spring.core.movie_theater_manager.services.impl.EventServiceImpl">
+        <property name="eventDAO" ref="eventDAO"/>
+    </bean>
+    <bean id="userService" class="com.epam.spring.core.movie_theater_manager.services.impl.UserServiceImpl">
+        <property name="userDAO" ref="userDAO"/>
+    </bean>
+
+
+    <bean id="bookingDAO" class="com.epam.spring.core.movie_theater_manager.dao.impl.InMemoryBookingDAO"/>
+    <bean id="eventDAO" class="com.epam.spring.core.movie_theater_manager.dao.impl.InMemoryEventDAO"/>
+    <bean id="userDAO" class="com.epam.spring.core.movie_theater_manager.dao.impl.InMemoryUserDAO"/>
+    <bean id="auditoriumDAO" class="com.epam.spring.core.movie_theater_manager.dao.impl.InPropertyFileAuditoriumDAO">
+        <property name="auditoriums">
+            <list>
+                <ref bean="auditorium"/>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="auditorium" class="com.epam.spring.core.movie_theater_manager.entity.Auditorium">
+        <constructor-arg value="${id}"/>
+        <constructor-arg value="${name}"/>
+        <constructor-arg value="${number}"/>
+        <constructor-arg value="${vipSeats}"/>
+    </bean>
+
+</beans>
