@@ -31,7 +31,7 @@ public class BookingServiceImpl implements BookingService{
         this.bookingDAO = bookingDAO;
     }
 
-    public double getTicketPrice(Event event, Date date, Time time, Seat seat, User user) {
+    public double getTicketPrice(Event event, Date date, Seat seat, User user) {
         double ticketPrice = 0;
         double basePrise = event.getBasePrice();
         double discount = discountService.getDiscount(user, event, date);

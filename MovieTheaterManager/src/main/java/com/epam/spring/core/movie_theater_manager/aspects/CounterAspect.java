@@ -1,11 +1,13 @@
 package com.epam.spring.core.movie_theater_manager.aspects;
 
+import com.epam.spring.core.movie_theater_manager.entity.Ticket;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 
 import com.epam.spring.core.movie_theater_manager.dao.CounterAspectDAO;
+import com.epam.spring.core.movie_theater_manager.entity.Event;
 
 @Aspect
 public class CounterAspect {
@@ -32,19 +34,21 @@ public class CounterAspect {
     private void countBookTicket() {
     }
 
-    @AfterReturning("countEventAccessedByName()")
-    public void countEventAccessedByNameAfterReturning(JoinPoint joinPoint) {
-        counterAspectDAO.increaseCounter(joinPoint.getSignature().getName());
+    @AfterReturning(pointcut = "countEventAccessedByName()", returning = "returnVal")
+    public void countEventAccessedByName(Object returnVal) {
+        counterAspectDAO.increaseCounterGetByName((Event) returnVal);
     }
 
     @AfterReturning("countGetTicketPrice()")
     public void countGetTicketPriceAfterReturning(JoinPoint joinPoint) {
-        counterAspectDAO.increaseCounter(joinPoint.getSignature().getName());
+        Object[] methodArgs = joinPoint.getArgs();
+        counterAspectDAO.increaseCounterGetTicketPrice((Event) methodArgs[0]);
     }
 
     @AfterReturning("countBookTicket()")
     public void countBookTicketAfterReturning(JoinPoint joinPoint) {
-        counterAspectDAO.increaseCounter(joinPoint.getSignature().getName());
+        Object[] methodArgs = joinPoint.getArgs();
+        counterAspectDAO.increaseCounterBookTicket(((Ticket) methodArgs[1]).getEvent());
     }
 
 }

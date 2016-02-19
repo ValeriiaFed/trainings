@@ -5,33 +5,69 @@ import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import com.epam.spring.core.movie_theater_manager.dao.CounterAspectDAO;
+import com.epam.spring.core.movie_theater_manager.entity.Event;
 
 public class InMemoryCounterAspectDAO implements CounterAspectDAO {
 
-    private Map<String, AtomicInteger> counter;
+    private Map<Event, AtomicInteger> counterGetByName;
+    private Map<Event, AtomicInteger> counterByGetTicketPrice;
+    private Map<Event, AtomicInteger> counterBookTicket;
 
     public InMemoryCounterAspectDAO() {
-        counter = new HashMap<String, AtomicInteger>();
+        counterGetByName = new HashMap<Event, AtomicInteger>();
+        counterByGetTicketPrice = new HashMap<Event, AtomicInteger>();
+        counterBookTicket = new HashMap<Event, AtomicInteger>();
     }
 
-    public InMemoryCounterAspectDAO(Map<String, AtomicInteger> counter) {
-        this.counter = counter;
+    public Map<Event, AtomicInteger> getCounterBookTicket() {
+        return counterBookTicket;
     }
 
-    public Map<String, AtomicInteger> getCounter() {
-        return counter;
+    public void setCounterBookTicket(Map<Event, AtomicInteger> counterBookTicket) {
+        this.counterBookTicket = counterBookTicket;
     }
 
-    public void setCounter(Map<String, AtomicInteger> counter) {
-        this.counter = counter;
+    public Map<Event, AtomicInteger> getCounterByGetTicketPrice() {
+        return counterByGetTicketPrice;
     }
 
-    public void increaseCounter(String className) {
-        if (counter.get(className) == null){
-            counter.put(className, new AtomicInteger(1));
+    public void setCounterByGetTicketPrice(Map<Event, AtomicInteger> counterByGetTicketPrice) {
+        this.counterByGetTicketPrice = counterByGetTicketPrice;
+    }
+
+    public InMemoryCounterAspectDAO(Map<Event, AtomicInteger> counter) {
+        this.counterGetByName = counter;
+    }
+
+    public Map<Event, AtomicInteger> getCounterGetByName() {
+        return counterGetByName;
+    }
+
+    public void increaseCounterGetTicketPrice(Event event) {
+        if (counterByGetTicketPrice.get(event) == null) {
+            counterByGetTicketPrice.put(event, new AtomicInteger(1));
         } else {
-            counter.get(className).getAndIncrement();
+            counterByGetTicketPrice.get(event).getAndIncrement();
         }
-        System.out.println(counter.toString());
+    }
+
+    public void increaseCounterBookTicket(Event event) {
+        if (counterBookTicket.get(event) == null) {
+            counterBookTicket.put(event, new AtomicInteger(1));
+        } else {
+            counterBookTicket.get(event).getAndIncrement();
+        }
+    }
+
+    public void setCounterGetByName(Map<Event, AtomicInteger> counterGetByName) {
+        this.counterGetByName = counterGetByName;
+    }
+
+    public void increaseCounterGetByName(Event event) {
+        if (counterGetByName.get(event) == null) {
+            counterGetByName.put(event, new AtomicInteger(1));
+        } else {
+            counterGetByName.get(event).getAndIncrement();
+        }
     }
 }

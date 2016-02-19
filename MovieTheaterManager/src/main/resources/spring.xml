@@ -16,10 +16,18 @@
     <bean id="counterAspect" class="com.epam.spring.core.movie_theater_manager.aspects.CounterAspect">
         <property name="counterAspectDAO" ref="counterAspectDAO"/>
     </bean>
+    <bean id="discountAspect" class="com.epam.spring.core.movie_theater_manager.aspects.DiscountAspect">
+        <property name="discountAspectDAO" ref="discountAspectDAO"/>
+    </bean>
+    <bean id="luckyWinnerAspect" class="com.epam.spring.core.movie_theater_manager.aspects.LuckyWinnerAspect">
+        <!--<property name="discountAspectDAO" ref="discountAspectDAO"/>-->
+    </bean>
 
-    <bean id="counterAspectTest" class="com.epam.spring.core.movie_theater_manager.aspectTest.CounterAspectTest">
+    <bean id="aspectTest" class="com.epam.spring.core.movie_theater_manager.aspectTest.AspectTest">
         <property name="eventService" ref="eventService"/>
         <property name="counterAspectDAO" ref="counterAspectDAO"/>
+        <property name="bookingService" ref="bookingService"/>
+        <property name="discountAspectDAO" ref="discountAspectDAO"/>
     </bean>
 
     <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
@@ -84,6 +92,7 @@
 
 
     <bean id="counterAspectDAO" class="com.epam.spring.core.movie_theater_manager.dao.impl.InMemoryCounterAspectDAO"/>
+    <bean id="discountAspectDAO" class="com.epam.spring.core.movie_theater_manager.dao.impl.InMemoryDiscountAspectDAO"/>
     <bean id="bookingDAO" class="com.epam.spring.core.movie_theater_manager.dao.impl.InMemoryBookingDAO"/>
     <bean id="eventDAO" class="com.epam.spring.core.movie_theater_manager.dao.impl.InMemoryEventDAO"/>
     <bean id="userDAO" class="com.epam.spring.core.movie_theater_manager.dao.impl.InMemoryUserDAO"/>
