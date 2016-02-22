@@ -3,13 +3,14 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:util="http://www.springframework.org/schema/util"
        xmlns:aop="http://www.springframework.org/schema/aop"
-       xsi:schemaLocation="
- 		http://www.springframework.org/schema/beans
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
  		http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
  		http://www.springframework.org/schema/aop
  		http://www.springframework.org/schema/aop/spring-aop-3.2.xsd
  		http://www.springframework.org/schema/util
  		http://www.springframework.org/schema/util/spring-util-3.2.xsd">
+
+    <import resource="jdbc.xml"/>
 
     <aop:aspectj-autoproxy/>
 
@@ -95,7 +96,9 @@
     <bean id="discountAspectDAO" class="com.epam.spring.core.movie_theater_manager.dao.impl.InMemoryDiscountAspectDAO"/>
     <bean id="bookingDAO" class="com.epam.spring.core.movie_theater_manager.dao.impl.InMemoryBookingDAO"/>
     <bean id="eventDAO" class="com.epam.spring.core.movie_theater_manager.dao.impl.InMemoryEventDAO"/>
-    <bean id="userDAO" class="com.epam.spring.core.movie_theater_manager.dao.impl.InMemoryUserDAO"/>
+    <bean id="userDAO" class="com.epam.spring.core.movie_theater_manager.dao.impl.InDbUserDAO">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
     <bean id="auditoriumDAO" class="com.epam.spring.core.movie_theater_manager.dao.impl.InPropertyFileAuditoriumDAO">
         <property name="auditoriums">
             <list>

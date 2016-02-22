@@ -8,6 +8,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -43,8 +44,8 @@ public class AspectTest {
     private BookingService bookingService;
     private DiscountAspectDAO discountAspectDAO;
 
-    ConfigurableApplicationContext ctx;
-    AspectTest counterAspectTest;
+    public static ConfigurableApplicationContext ctx;
+    public static AspectTest counterAspectTest;
     Date date;
     Date date1;
     List<Integer> vipSeats;
@@ -92,10 +93,15 @@ public class AspectTest {
         this.eventService = eventService;
     }
 
-    @Before
-    public void setUp() throws Exception {
+    @BeforeClass
+    public static void globalSetUp() {
         ctx = new ClassPathXmlApplicationContext("spring.xml");
         counterAspectTest = (AspectTest) ctx.getBean("aspectTest");
+    }
+
+    @Before
+    public void setUp() throws Exception {
+
         date = new Date();
         SimpleDateFormat ft = new SimpleDateFormat(DD_MM_YYYY);
         date1 = ft.parse(DATE_1);
