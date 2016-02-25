@@ -1,6 +1,7 @@
 package com.epam.spring.core.movie_theater_manager.dao.impl;
 
 import com.epam.spring.core.movie_theater_manager.dao.UserDAO;
+import com.epam.spring.core.movie_theater_manager.entity.Ticket;
 import com.epam.spring.core.movie_theater_manager.entity.User;
 
 import java.util.HashMap;
@@ -50,5 +51,9 @@ public class InMemoryUserDAO implements UserDAO {
             }
         }
         return null;
+    }
+
+    public void updateBookedTickets(User user, Ticket ticket) {
+
     }
 }

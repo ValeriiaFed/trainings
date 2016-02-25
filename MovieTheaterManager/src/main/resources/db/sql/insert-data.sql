@@ -1,3 +1,24 @@
-INSERT INTO users VALUES (1, 'mkyong', 'mkyong@gmail.com');
-INSERT INTO users VALUES (2, 'alex', 'alex@yahoo.com');
-INSERT INTO users VALUES (3, 'joel', 'joel@gmail.com');
+INSERT INTO USERS VALUES(1, 'test@email.com', 'testName', '2005-10-05');
+--INSERT INTO USERS VALUES(2, 'test1@email.com', 'testName1', '2005-10-05');
+--INSERT INTO USERS VALUES(3, 'test2@email.com', 'testName2', '2005-10-05');
+
+INSERT INTO AUDITORIUM VALUES(1, 'auditorium1', 60);
+INSERT INTO AUDITORIUM VALUES(2, 'auditorium2', 120);
+INSERT INTO AUDITORIUM VALUES(3, 'auditorium3', 80);
+
+INSERT INTO SEAT_TYPE VALUES(1, 'base');
+INSERT INTO SEAT_TYPE VALUES(2, 'vip');
+
+INSERT INTO SEAT VALUES(1, 10, 1);
+INSERT INTO SEAT VALUES(2, 25, 1);
+INSERT INTO SEAT VALUES(3, 55, 2);
+
+INSERT INTO RATING VALUES(1, 'low');
+INSERT INTO RATING VALUES(2, 'mid');
+INSERT INTO RATING VALUES(3, 'high');
+
+INSERT INTO EVENT VALUES(1, 'event1', 15.5, 1, '2005-10-05', 1);
+INSERT INTO EVENT VALUES(2, 'event2', 25.5, 2, '2005-10-05', 3);
+INSERT INTO EVENT VALUES(3, 'event3', 55.5, 3, '2005-10-05', 2);
+
+--INSERT INTO TICKET VALUES(1, 15.5, 1, 1);

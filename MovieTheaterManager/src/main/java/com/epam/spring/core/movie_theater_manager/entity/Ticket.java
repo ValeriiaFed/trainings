@@ -8,7 +8,7 @@ public class Ticket {
     private Seat seat;
 
     public Ticket(int id, double price, Event event, Seat seat) {
-        this.id = id;
+        this.id = (int )(Math. random() * 50 + 1);
         this.price = price;
         this.event = event;
         this.seat = seat;

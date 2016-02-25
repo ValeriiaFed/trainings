@@ -28,7 +28,7 @@ public class AspectTest {
     private static final int AUDITORIUM_ID = 1;
     private static final int AUDITORIUM_SEATS = 60;
     private static final double EVENT_PRICE = 15.0;
-    private static final int SEAT_ID = 12;
+    private static final int SEAT_ID = 1;
     private static final int SEAT_NUMBER_12 = 12;
     private static final String USER_EMAIL = "test@user.com";
     private static final String USER_NAME = "user name";
@@ -37,7 +37,7 @@ public class AspectTest {
     private static final String DATE_1 = "11-02-2015";
     private static final String USER_EMAIL_2 = "user2@test.com";
     private static final String USER_NAME_2 = "user name 2";
-    public static final String GET_DISCOUNT_METHOD_NAME = "getDiscount";
+    private static final String GET_DISCOUNT_METHOD_NAME = "getDiscount";
 
     private EventService eventService;
     private CounterAspectDAO counterAspectDAO;
@@ -109,10 +109,12 @@ public class AspectTest {
         vipSeats.add(55);
         auditorium = new Auditorium(AUDITORIUM_ID, AUDITORIUM_NAME, AUDITORIUM_SEATS, vipSeats);
         event1 = new Event(EVENT_NAME_1, EVENT_PRICE, RatingType.HIGH, date, auditorium);
+        event1.setId(1);
         event2 = new Event(EVENT_NAME_2, EVENT_PRICE, RatingType.HIGH, date, auditorium);
         event3 = new Event(EVENT_NAME_3, EVENT_PRICE, RatingType.HIGH, date, auditorium);
         seat = new Seat(SEAT_ID, SEAT_NUMBER_12, SeatType.BASE);
         user = new User(USER_EMAIL, USER_NAME, date);
+        user.setId(1);
         user1 = new User(USER_EMAIL_2, USER_NAME_2, date1);
         ticket = new Ticket(TICKET_ID, EVENT_PRICE, event1, seat);
     }

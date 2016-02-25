@@ -2,9 +2,6 @@ package com.epam.spring.core.movie_theater_manager.entity;
 
 import java.util.List;
 
-/**
- * Created by Valeriia_Fed on 05.02.2016.
- */
 public class Auditorium {
 
     private int id;
@@ -13,7 +10,7 @@ public class Auditorium {
     private List<Integer> vipSeats;
 
     public Auditorium(int id, String name, int number, List<Integer> vipSeats) {
-        this.id = id;
+        this.id = (int )(Math. random() * 50 + 1);
         this.name = name;
         this.number = number;
         this.vipSeats = vipSeats;

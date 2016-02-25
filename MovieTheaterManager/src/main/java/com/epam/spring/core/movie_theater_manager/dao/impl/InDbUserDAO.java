@@ -2,6 +2,7 @@ package com.epam.spring.core.movie_theater_manager.dao.impl;
 
 import javax.sql.DataSource;
 
+import com.epam.spring.core.movie_theater_manager.entity.Ticket;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import com.epam.spring.core.movie_theater_manager.dao.UserDAO;
@@ -10,6 +11,10 @@ import com.epam.spring.core.movie_theater_manager.entity.User;
 public class InDbUserDAO implements UserDAO {
 
     private JdbcTemplate jdbcTemplate;
+
+    public void setDataSource(DataSource dataSource) {
+        this.jdbcTemplate = new JdbcTemplate(dataSource);
+    }
 
     public void createUser(User user) {
 
@@ -45,7 +50,11 @@ public class InDbUserDAO implements UserDAO {
         return null;
     }
 
-    public void setDataSource(DataSource dataSource) {
-        this.jdbcTemplate = new JdbcTemplate(dataSource);
+    public void updateBookedTickets(User user, Ticket ticket) {
+
+        String query = "INSERT INTO USER_TICKET (USER_ID, TICKET_ID) VALUES (?,?)";
+
+        jdbcTemplate.update(query, new Object[] { user.getId(), ticket.getId()});
     }
+
 }

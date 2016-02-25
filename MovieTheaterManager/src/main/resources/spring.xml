@@ -74,6 +74,7 @@
     </bean>
     <bean id="bookingService" class="com.epam.spring.core.movie_theater_manager.services.impl.BookingServiceImpl">
         <property name="discountService" ref="discountService"/>
+        <property name="userService" ref="userService"/>
         <property name="bookingDAO" ref="bookingDAO"/>
     </bean>
     <bean id="discountService" class="com.epam.spring.core.movie_theater_manager.services.impl.DiscountServiceImpl">
@@ -94,7 +95,9 @@
 
     <bean id="counterAspectDAO" class="com.epam.spring.core.movie_theater_manager.dao.impl.InMemoryCounterAspectDAO"/>
     <bean id="discountAspectDAO" class="com.epam.spring.core.movie_theater_manager.dao.impl.InMemoryDiscountAspectDAO"/>
-    <bean id="bookingDAO" class="com.epam.spring.core.movie_theater_manager.dao.impl.InMemoryBookingDAO"/>
+    <bean id="bookingDAO" class="com.epam.spring.core.movie_theater_manager.dao.impl.InDbBookingDAO">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
     <bean id="eventDAO" class="com.epam.spring.core.movie_theater_manager.dao.impl.InMemoryEventDAO"/>
     <bean id="userDAO" class="com.epam.spring.core.movie_theater_manager.dao.impl.InDbUserDAO">
         <property name="dataSource" ref="dataSource"/>

@@ -12,4 +12,5 @@ public interface UserService extends Service {
     User getById(int id);
     User getUserByEmail(String email);
     User getUserByName(String name);
+    void updateBookedTickets(User user, Ticket ticket);
 }

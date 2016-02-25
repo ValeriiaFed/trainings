@@ -4,6 +4,7 @@ import com.epam.spring.core.movie_theater_manager.dao.BookingDAO;
 import com.epam.spring.core.movie_theater_manager.entity.*;
 import com.epam.spring.core.movie_theater_manager.services.BookingService;
 import com.epam.spring.core.movie_theater_manager.services.DiscountService;
+import com.epam.spring.core.movie_theater_manager.services.UserService;
 
 import java.sql.Time;
 import java.util.Date;
@@ -14,6 +15,16 @@ public class BookingServiceImpl implements BookingService{
     private DiscountService discountService;
 
     private BookingDAO bookingDAO;
+
+    private UserService userService;
+
+    public UserService getUserService() {
+        return userService;
+    }
+
+    public void setUserService(UserService userService) {
+        this.userService = userService;
+    }
 
     public DiscountService getDiscountService() {
         return discountService;
@@ -43,7 +54,7 @@ public class BookingServiceImpl implements BookingService{
 
     public void bookTicket(User user, Ticket ticket) {
         bookingDAO.bookTicket(user, ticket);
-        user.addTicket(ticket);
+        userService.updateBookedTickets(user, ticket);
     }
 
     public List<Ticket> getTicketsForEvent(Event event, Date date) {

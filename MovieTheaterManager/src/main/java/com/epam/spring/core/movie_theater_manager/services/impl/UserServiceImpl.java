@@ -1,6 +1,7 @@
 package com.epam.spring.core.movie_theater_manager.services.impl;
 
 import com.epam.spring.core.movie_theater_manager.dao.UserDAO;
+import com.epam.spring.core.movie_theater_manager.entity.Ticket;
 import com.epam.spring.core.movie_theater_manager.entity.User;
 import com.epam.spring.core.movie_theater_manager.services.UserService;
 
@@ -35,4 +36,9 @@ public class UserServiceImpl implements UserService{
     public User getUserByName(String name) {
         return userDAO.getUserByName(name);
     }
+
+    public void updateBookedTickets(User user, Ticket ticket) {
+        userDAO.updateBookedTickets(user, ticket);
+    }
+
 }

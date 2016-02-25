@@ -6,6 +6,7 @@ import java.util.List;
 
 public class Event {
 
+    private int id;
     private String name;
     private double basePrice;
     private RatingType rating;
@@ -13,6 +14,7 @@ public class Event {
     private Auditorium auditorium;
 
     public Event(String name, double basePrice, RatingType rating, Date date, Auditorium auditorium) {
+        this.id = (int )(Math. random() * 50 + 1);
         this.name = name;
         this.basePrice = basePrice;
         this.rating = rating;
@@ -32,6 +34,14 @@ public class Event {
     }
 
     public Event() {
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {

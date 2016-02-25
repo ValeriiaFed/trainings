@@ -1,8 +1,5 @@
 package com.epam.spring.core.movie_theater_manager.entity;
 
-/**
- * Created by Valeriia_Fed on 07.02.2016.
- */
 public class Seat {
 
     private int id;
@@ -11,6 +8,12 @@ public class Seat {
 
     public Seat(int id, int number, SeatType seatType) {
         this.id = id;
+        this.number = number;
+        this.seatType = seatType;
+    }
+
+    public Seat(int number, SeatType seatType) {
+        this.id = (int )(Math. random() * 50 + 1);
         this.number = number;
         this.seatType = seatType;
     }
