@@ -9,8 +9,15 @@ public class Auditorium {
     private int number;
     private List<Integer> vipSeats;
 
-    public Auditorium(int id, String name, int number, List<Integer> vipSeats) {
+    public Auditorium(String name, int number, List<Integer> vipSeats) {
         this.id = (int )(Math. random() * 50 + 1);
+        this.name = name;
+        this.number = number;
+        this.vipSeats = vipSeats;
+    }
+
+    public Auditorium(int id, String name, int number, List<Integer> vipSeats) {
+        this.id = id;
         this.name = name;
         this.number = number;
         this.vipSeats = vipSeats;

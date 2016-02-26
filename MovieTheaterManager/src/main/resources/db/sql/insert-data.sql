@@ -1,5 +1,5 @@
 INSERT INTO USERS VALUES(1, 'test@email.com', 'testName', '2005-10-05');
---INSERT INTO USERS VALUES(2, 'test1@email.com', 'testName1', '2005-10-05');
+INSERT INTO USERS VALUES(2, 'test1@email.com', 'testName1', '2005-10-05');
 --INSERT INTO USERS VALUES(3, 'test2@email.com', 'testName2', '2005-10-05');
 
 INSERT INTO AUDITORIUM VALUES(1, 'auditorium1', 60);

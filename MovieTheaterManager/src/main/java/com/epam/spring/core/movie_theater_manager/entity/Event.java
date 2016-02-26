@@ -22,6 +22,15 @@ public class Event {
         this.auditorium = auditorium;
     }
 
+    public Event(int id, String name, double basePrice, RatingType rating, Date date, Auditorium auditorium) {
+        this.id = id;
+        this.name = name;
+        this.basePrice = basePrice;
+        this.rating = rating;
+        this.date = date;
+        this.auditorium = auditorium;
+    }
+
     @Override
     public String toString() {
         return "Event{" +

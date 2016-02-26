@@ -20,8 +20,16 @@ public class User {
         tickets = new ArrayList<Ticket>();
     }
 
+    public User(int id, String email, String name,Date birthday) {
+        this.id = id;
+        this.email = email;
+        this.name = name;
+        this.birthday = birthday;
+    }
+
     public User() {
     }
+
 
     @Override
     public String toString() {

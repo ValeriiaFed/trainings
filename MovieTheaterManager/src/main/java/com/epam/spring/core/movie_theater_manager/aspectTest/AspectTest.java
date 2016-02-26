@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import com.epam.spring.core.movie_theater_manager.services.UserService;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -34,7 +35,7 @@ public class AspectTest {
     private static final String USER_NAME = "user name";
     private static final int TICKET_ID = 1;
     private static final String DD_MM_YYYY = "dd-MM-yyyy";
-    private static final String DATE_1 = "11-02-2015";
+    private static final String DATE_1 = "05-10-2005";
     private static final String USER_EMAIL_2 = "user2@test.com";
     private static final String USER_NAME_2 = "user name 2";
     private static final String GET_DISCOUNT_METHOD_NAME = "getDiscount";
@@ -43,6 +44,15 @@ public class AspectTest {
     private CounterAspectDAO counterAspectDAO;
     private BookingService bookingService;
     private DiscountAspectDAO discountAspectDAO;
+    private UserService userService;
+
+    public UserService getUserService() {
+        return userService;
+    }
+
+    public void setUserService(UserService userService) {
+        this.userService = userService;
+    }
 
     public static ConfigurableApplicationContext ctx;
     public static AspectTest counterAspectTest;
@@ -57,6 +67,7 @@ public class AspectTest {
     User user;
     User user1;
     Ticket ticket;
+    Ticket ticket1;
 
     public DiscountAspectDAO getDiscountAspectDAO() {
         return discountAspectDAO;
@@ -108,15 +119,14 @@ public class AspectTest {
         vipSeats = new ArrayList<Integer>();
         vipSeats.add(55);
         auditorium = new Auditorium(AUDITORIUM_ID, AUDITORIUM_NAME, AUDITORIUM_SEATS, vipSeats);
-        event1 = new Event(EVENT_NAME_1, EVENT_PRICE, RatingType.HIGH, date, auditorium);
-        event1.setId(1);
+        event1 = new Event(1, EVENT_NAME_1, EVENT_PRICE, RatingType.HIGH, date, auditorium);
         event2 = new Event(EVENT_NAME_2, EVENT_PRICE, RatingType.HIGH, date, auditorium);
         event3 = new Event(EVENT_NAME_3, EVENT_PRICE, RatingType.HIGH, date, auditorium);
         seat = new Seat(SEAT_ID, SEAT_NUMBER_12, SeatType.BASE);
-        user = new User(USER_EMAIL, USER_NAME, date);
-        user.setId(1);
-        user1 = new User(USER_EMAIL_2, USER_NAME_2, date1);
-        ticket = new Ticket(TICKET_ID, EVENT_PRICE, event1, seat);
+        user = new User(1, "test@email.com", "testName", date1);
+        user1 = new User(2, USER_EMAIL_2, USER_NAME_2, date1);
+        ticket = new Ticket(TICKET_ID, 15.5, event1, seat);
+        ticket1 = new Ticket(2, 15.5, event1, seat);
     }
 
     @Test
@@ -173,7 +183,7 @@ public class AspectTest {
         counterAspectTest.getBookingService().bookTicket(user, ticket);
         Assert.assertEquals(new AtomicInteger(1).get(), counterAspectTest.getCounterAspectDAO().getCounterBookTicket().get(event1).get());
 
-        counterAspectTest.getBookingService().bookTicket(user, ticket);
+        counterAspectTest.getBookingService().bookTicket(user1, ticket1);
         Assert.assertEquals(new AtomicInteger(2).get(), counterAspectTest.getCounterAspectDAO().getCounterBookTicket().get(event1).get());
     }
 
@@ -202,5 +212,14 @@ public class AspectTest {
 
         counterAspectTest.getBookingService().bookTicket(user, ticket);
         System.out.println(ticket.getPrice());
+    }
+
+    @Test
+    public void getUserByNameTest() {
+        User user = counterAspectTest.getUserService().getUserByName("testName");
+
+        Assert.assertEquals("The counter map should be null before calling getTicketPrice method",
+                user, this.user);
+
     }
 }

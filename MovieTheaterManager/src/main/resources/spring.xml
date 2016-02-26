@@ -29,6 +29,7 @@
         <property name="counterAspectDAO" ref="counterAspectDAO"/>
         <property name="bookingService" ref="bookingService"/>
         <property name="discountAspectDAO" ref="discountAspectDAO"/>
+        <property name="userService" ref="userService"/>
     </bean>
 
     <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
